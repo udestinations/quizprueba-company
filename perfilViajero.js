@@ -6,8 +6,6 @@ var resultado2 = JSON.parse(sessionStorage.getItem("pregunta2"));
 var resultado3 = JSON.parse(sessionStorage.getItem("pregunta3"));
 var resultado4 = JSON.parse(sessionStorage.getItem("pregunta4"));
 var resultado5 = JSON.parse(sessionStorage.getItem("pregunta5"));
-// var resultadoTest = JSON.parse(sessionStorage.getItem("preguntatest"))
-// var resultadoTest2 = JSON.parse(sessionStorage.getItem("preguntatest2"));
 var resultado6 = JSON.parse(sessionStorage.getItem("pregunta6"));
 var resultado7 = JSON.parse(sessionStorage.getItem("pregunta7"));
 var resultado8 = JSON.parse(sessionStorage.getItem("pregunta8"));
@@ -27,8 +25,9 @@ var p12 = JSON.parse(sessionStorage.getItem("p12"));
 var p13 = JSON.parse(sessionStorage.getItem("p13"));
 var p14 = JSON.parse(sessionStorage.getItem("p14"));
 
-// Variable que recoge valor de pregunta 6 para posterior seleccionado de subperfil
+// Variable que recoge valor de preguntas 3 y 6 para posterior seleccionado de subperfil
 var opcion6 = resultado6.toString();
+var opcion3 = resultado3.toString();
 
 // ALGORITMO PRINCIPAL DEL SELECCIONADO DE PERFIL
 function elQueMasAparece() {
@@ -55,6 +54,7 @@ function elQueMasAparece() {
     const linkHisto = "https://udestinations.es/su-perfil-viajero-es-historico-cultural";
     const linkOut = "https://udestinations.es/tu-perfil-viajero-es-outdoors-aventura";
     const linkWell = "https://udestinations.es/su-perfil-viajero-es-wellnex-relax";
+    const linkBonoEx = "https://udestinations.es/bonos-experiencia";
 
     //Constantes que crean un enlace en el front
     const elementAstro = document.createElement('a');
@@ -62,6 +62,7 @@ function elQueMasAparece() {
     const elementHisto = document.createElement('a');
     const elementWell = document.createElement('a');
     const elementOut = document.createElement('a');
+    const elementBono = document.createElement('a');
 
     // Propiedades del objeto datos reconvertido a Objeto
     const nombre = resultadoForm.name;
@@ -122,7 +123,7 @@ function elQueMasAparece() {
             valor_mayor2 = mapeo2[element];
             mas_frecuente2 = element;
         }
-    } 
+    }
 
     console.log(valor_mayor);
     console.log(valor_mayor2);
@@ -144,13 +145,18 @@ function elQueMasAparece() {
     elementOut.setAttribute("href", linkOut);
     elementOut.innerHTML = "« Descubre más detalles » ";
 
+    elementBono.setAttribute("href", linkBonoEx);
+    elementBono.innerHTML = "« Te organizamos tu viaje » ";
+
     // Variables de sub-perfiles
 
-     var premium = ' premium';
-     var low_cost = ' moderado';
+    var premium = ' premium';
+    var low_cost = ' moderado';
 
     var respPremium = "Me gusta vivir y disfrutar el viaje al máximo sin importar el costo";
     var respLow = "Intento que el viaje sea lo más económico posible";
+
+    var respOrganizar = "Me gusta que me lo organicen / No tengo tiempo para planificar";
 
     // Flujo de control de selección de perfil de viajero
 
@@ -201,7 +207,21 @@ function elQueMasAparece() {
         if (opcion6 === respLow) {
             valorDesdeLS.innerHTML = mas_frecuente + low_cost;
         }
-    } 
+    }
+
+    // Si es organizado, perfil combinado
+    if (valor_mayor === valor_mayor2 || (valor_mayor - valor_mayor2) <= 6) {
+        mas_frecuente += ' - ' + mas_frecuente2;
+        valorDesdeLS.innerHTML = mas_frecuente;
+        if (opcion3 === respOrganizar) {
+            document.body.appendChild(elementBono)
+        }
+    }
+
+    // Si es organizado, un solo perfil
+    if (opcion3 === respOrganizar) {
+        document.body.appendChild(elementBono)
+    }
 
     // Un solo perfil
     if (opcion6 === respPremium) {
