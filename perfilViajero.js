@@ -209,20 +209,6 @@ function elQueMasAparece() {
         }
     }
 
-    // Si es organizado, perfil combinado
-    if (valor_mayor === valor_mayor2 || (valor_mayor - valor_mayor2) <= 6) {
-        mas_frecuente += ' - ' + mas_frecuente2;
-        valorDesdeLS.innerHTML = mas_frecuente;
-        if (opcion3 === respOrganizar) {
-            document.body.appendChild(elementBono)
-        }
-    }
-
-    // Si es organizado, un solo perfil
-    if (opcion3 === respOrganizar) {
-        document.body.appendChild(elementBono)
-    }
-
     // Un solo perfil
     if (opcion6 === respPremium) {
         mas_frecuente += premium;
@@ -231,6 +217,14 @@ function elQueMasAparece() {
         mas_frecuente += low_cost;
         valorDesdeLS.innerHTML = mas_frecuente;
     }
+
+
+    // Si es organizado, un solo perfil
+    if (opcion3 === respOrganizar) {
+        document.body.appendChild(elementBono)
+    }
+
+    
 
 
     const perfil = mas_frecuente;
